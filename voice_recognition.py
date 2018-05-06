@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-import cv2
-#from gtts import gTTS
 import speech_recognition as sr
 from win32com.client import constants, Dispatch
 import os
 import webbrowser
-#import winsound
 from pygame import mixer
 
 speaker = Dispatch("SAPI.SpVoice")
@@ -20,19 +17,13 @@ def talkToMe(audio):
     
     global speaker
     speaker.Speak(Msg)
-    #os.system('mpg123 audio.mp3')
-    #os.system("say '"+audio+"'")
-    #tts = gTTS(text=audio,lang='en')
-    #tts.save('audio.mp3')
     
 def myCommand():
 
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        print('I am ready for your next command')
-        #r.pause_threshold = 1
-        #r.adjust_for_ambient_noise(source,duration=1)
+        print('Listening')
         audio = r.listen(source)
 
     try:
@@ -43,10 +34,8 @@ def myCommand():
             return 'exit'
         
         assistant(command)
-        #talkToMe('You said ' + command)
     
     except sr.UnknownValueError:
-        #assistant(myCommand())
         return
     
     return command
@@ -81,17 +70,13 @@ def assistant(command):
 
 os.system('jarvis2.gif')
 talkToMe("Hi I'm Jarvis, May I help you ?")
-#cam = cv2.VideoCapture(0)
-
 
 while True:
 
     ret = myCommand()
     
     if ret=='exit':
-        #cam.release()
         os.system("taskkill /im Microsoft.Photos.exe /f")
         break
     
 del speaker    
-#cv2.destroyAllWindows()
